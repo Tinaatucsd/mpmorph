@@ -37,7 +37,7 @@ requires-python = '>="3.8"'
 
 [project.optional-dependencies]
 strict = [
-    "mp-api==0.27.5",
+    "mp-api==0.30.8",
     "fireworks==2.0.3",
     "atomate==1.0.3",
     "atomate2==0.0.8",
