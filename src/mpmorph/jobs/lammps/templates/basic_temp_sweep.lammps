@@ -21,6 +21,7 @@
 units  metal
 atom_style atomic
 boundary p p p
+box tilt large
 
 atom_modify map array
 
