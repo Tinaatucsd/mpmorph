@@ -3,6 +3,7 @@ from jobflow import Maker, job, Response
 from pymatgen.core.structure import Structure
 
 from atomate2.vasp.schemas.task import TaskDocument
+from atomate2.amset.schemas import AmsetTaskDocument
 from atomate2.vasp.jobs.core import MDMaker
 from .tasks.m3gnet_input import M3GNetMDInputs
 from .tasks.chgnet_input import CHGNetMDInputs
@@ -106,12 +107,12 @@ class PVFromVasp(PVFromCalc):
         return MDPVDataDoc(volume=v_data, pressure=p_data)
 
 
-def task_doc_to_volume(task_doc: TaskDocument) -> float:
+def task_doc_to_volume(task_doc: AmsetTaskDocument) -> float:
     volume = task_doc.calcs_reversed[-1].output.ionic_steps[-1].structure.lattice.volume
     return volume
 
 
-def task_doc_to_pressure(task_doc: TaskDocument) -> float:  # TODO
+def task_doc_to_pressure(task_doc: AmsetTaskDocument) -> float:  # TODO
     stress_tensor = task_doc.calcs_reversed[-1].output.ionic_steps[-1].stress
     pressure = 1 / 3 * np.trace(stress_tensor)
     return pressure
