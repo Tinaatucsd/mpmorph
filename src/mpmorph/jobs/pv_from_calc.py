@@ -2,7 +2,7 @@ from dataclasses import dataclass
 from jobflow import Maker, job, Response
 from pymatgen.core.structure import Structure
 
-from atomate2.vasp.schemas.task import TaskDocument
+# from atomate2.vasp.schemas.task import TaskDocument
 from atomate2.amset.schemas import AmsetTaskDocument
 from atomate2.vasp.jobs.core import MDMaker
 from .tasks.m3gnet_input import M3GNetMDInputs
