@@ -13,8 +13,9 @@ from ...schemas.chgnet_md_calc import CHGNetMDCalculation
 
 def run_chgnet(
     structure: Structure, 
-    model: CHGNet | CHGNetCalculator | None = None,
-    inputs: CHGNetMDInputs, name: str = "chgnet_run", **kwargs
+    model: CHGNet | CHGNetCalculator,
+    inputs: CHGNetMDInputs, 
+    name: str = "chgnet_run", **kwargs
 ):
     """
     Run MD using the CHGNet Molecular Dynamics interface. This runs molecular
