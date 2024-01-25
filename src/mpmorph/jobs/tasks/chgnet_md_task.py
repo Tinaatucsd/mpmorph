@@ -49,7 +49,7 @@ def run_chgnet(
         taut=inputs.taut,
         taup=inputs.taup,
         bulk_modulus=inputs.bulk_modulus,
-        compressibility_au=inputs.compressibility_au,
+        # compressibility_au=inputs.compressibility_au,
         trajectory=traj_fn,
         logfile=log_fn,
         loginterval=inputs.loginterval,
