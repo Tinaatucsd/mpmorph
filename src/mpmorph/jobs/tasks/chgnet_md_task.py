@@ -34,8 +34,8 @@ def run_chgnet(
 
     taut = 10 * units.fs
 
-    if inputs.potential is not None:
-        kwargs["potential"] = inputs.potential
+    # if inputs.potential is not None:
+    #     kwargs["potential"] = inputs.potential
 
     md = MolecularDynamics(
         atoms=structure,
