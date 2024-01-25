@@ -4,6 +4,7 @@ import os
 
 from ase import units
 from chgnet.model.dynamics import MolecularDynamics
+from chgnet.model.model import CHGNet
 from pymatgen.core import Structure
 import dataclasses
 
@@ -11,7 +12,10 @@ from mpmorph.jobs.tasks.chgnet_input import CHGNetMDInputs
 from ...schemas.chgnet_md_calc import CHGNetMDCalculation
 
 def run_chgnet(
-    structure: Structure, inputs: CHGNetMDInputs, name: str = "chgnet_run", **kwargs
+    structure: Structure, 
+    inputs: CHGNetMDInputs, 
+    model:CHGNet | CHGNetCalculator | None = None,
+    name: str = "chgnet_run", **kwargs
 ):
     """
     Run MD using the CHGNet Molecular Dynamics interface. This runs molecular
@@ -34,17 +38,22 @@ def run_chgnet(
 
     md = MolecularDynamics(
         atoms=structure,
+        model=model,
         ensemble=inputs.ensemble,
         temperature=inputs.temperature,
+        starting_temperature=inputs.starting_temperature,
         timestep=inputs.timestep,
         pressure=inputs.pressure,
         use_device=inputs.use_device,
-        taut=taut,
+        taut=inputs.taut,
         taup=inputs.taup,
+        bulk_modulus=inputs.bulk_modulus,
         compressibility_au=inputs.compressibility_au,
         trajectory=traj_fn,
         logfile=log_fn,
         loginterval=inputs.loginterval,
+        crystal_feas_logfile=inputs.crystal_feas_logfile,
+        on_isolated_atoms=inputs.on_isolated_atoms,
         append_trajectory=inputs.append_trajectory,
         **kwargs,
     )
