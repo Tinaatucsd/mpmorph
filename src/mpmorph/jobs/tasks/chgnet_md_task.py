@@ -4,6 +4,7 @@ import os
 
 from ase import units
 from chgnet.model.dynamics import MolecularDynamics
+from chgnet.model.dynamics import CHGNetCalculator
 from chgnet.model.model import CHGNet
 from pymatgen.core import Structure
 import dataclasses
