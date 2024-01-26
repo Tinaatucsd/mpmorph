@@ -7,6 +7,8 @@ from atomate2.amset.schemas import AmsetTaskDocument
 from atomate2.vasp.jobs.core import MDMaker
 from .tasks.m3gnet_input import M3GNetMDInputs
 from .tasks.chgnet_input import CHGNetMDInputs
+from chgnet.model.dynamics import CHGNetCalculator
+from chgnet.model.model import CHGNet
 from .tasks.m3gnet_md_task import run_m3gnet
 from .tasks.chgnet_md_task import run_chgnet
 
@@ -53,9 +55,14 @@ class PVFromCHGNet(PVFromCalc):
 
     name: str = "PV_FROM_CHGNET"
     parameters: CHGNetMDInputs = None
+    model: CHGNet | CHGNetCalculator | None = None,
 
     def run_md(self, structure: Structure, **kwargs):
-        calc_doc = run_chgnet(structure, self.parameters, self.name, **kwargs)
+        calc_doc = run_chgnet(
+            structure=structure,
+            model=self.model,
+            inputs=self.parameters, 
+            name=self.name, **kwargs)
 
         return calc_doc
 
