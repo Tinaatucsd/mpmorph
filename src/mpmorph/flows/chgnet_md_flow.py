@@ -11,7 +11,7 @@ from mpmorph.jobs.tasks.chgnet_input import CHGNetMDInputs
 EQUILIBRATE_VOLUME_FLOW = "EQUILIBRATE_VOLUME_FLOW"
 CHGNET_MD = "CHGNET_MD"
 
-def get_md_flow_chgnet(structure, temp, steps_prod,steps_pv, converge_first = True, initial_vol_scale = 1, use_device='cpu'):
+def get_md_flow_chgnet(structure, model, temp, steps_prod, steps_pv, converge_first = True, initial_vol_scale = 1, use_device='cpu'):
     inputs_prod = CHGNetMDInputs(
         temperature=temp,
         steps=steps_prod,
@@ -22,8 +22,8 @@ def get_md_flow_chgnet(structure, temp, steps_prod,steps_pv, converge_first = Tr
         steps=steps_pv,
         use_device=use_device
     )    
-    pv_md_maker = PVFromCHGNet(parameters=inputs_pv)
-    chgnet_maker = CHGNetMDMaker(parameters = inputs_prod)
+    pv_md_maker = PVFromCHGNet(parameters=inputs_pv, model=model)
+    chgnet_maker = CHGNetMDMaker(parameters = inputs_prod, model=model)
     return _get_md_flow(
         pv_md_maker=pv_md_maker,
         production_md_maker=chgnet_maker,
@@ -33,13 +33,13 @@ def get_md_flow_chgnet(structure, temp, steps_prod,steps_pv, converge_first = Tr
     )    
 
 
-def get_equil_vol_flow_chgnet(structure, temp, steps):
+def get_equil_vol_flow_chgnet(structure, model, temp, steps):
     inputs = CHGNetMDInputs(
         temperature=temp,
         steps=steps
     )
 
-    pv_md_maker = PVFromCHGNet(parameters=inputs)
+    pv_md_maker = PVFromCHGNet(parameters=inputs, model=model)
     eq_vol_maker = EquilibriumVolumeSearchMaker(pv_md_maker=pv_md_maker)
     equil_vol_job = eq_vol_maker.make(structure)
     flow = Flow([equil_vol_job], output=equil_vol_job.output, name=EQUILIBRATE_VOLUME_FLOW)

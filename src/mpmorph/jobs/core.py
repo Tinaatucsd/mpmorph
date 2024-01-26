@@ -8,7 +8,8 @@ from .tasks.m3gnet_md_task import run_m3gnet
 from .tasks.chgnet_md_task import run_chgnet
 from ..schemas.m3gnet_md_calc import M3GNetMDCalculation
 from ..schemas.chgnet_md_calc import CHGNetMDCalculation
-
+from chgnet.model.dynamics import CHGNetCalculator
+from chgnet.model.model import CHGNet
 
 def empty_inputs():
     return M3GNetMDInputs()
@@ -63,17 +64,22 @@ class CHGNetMDMaker(Maker):
     parameters: CHGNetMDInputs = field(
         default_factory=empty_inputs_chgnet,
     )
+    model:CHGNet | CHGNetCalculator | None = None,
 
     @job(trajectory="trajectory", output_schema=CHGNetMDCalculation)
     def make(self, structure: Structure, **kwargs):
         """
-        Run MD using the M3GNet Molecular Dynamics interface. This runs molecular
+        Run MD using the CHGNet Molecular Dynamics interface. This runs molecular
         dynamics through the ASE interface with the default M3GNet potential.
 
         Args:
             structure: the input structure
         """
 
-        calc_doc = run_chgnet(structure, self.parameters, self.name, **kwargs)
+        calc_doc = run_chgnet(
+            structure=structure, 
+            inputs=self.parameters,
+            model=self.model,
+            name=self.name, **kwargs)
 
         return calc_doc
