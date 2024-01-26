@@ -60,8 +60,8 @@ class PVFromCHGNet(PVFromCalc):
     def run_md(self, structure: Structure, **kwargs):
         calc_doc = run_chgnet(
             structure=structure,
-            model=self.model,
             inputs=self.parameters, 
+            model=self.model,
             name=self.name, **kwargs)
 
         return calc_doc
