@@ -49,7 +49,7 @@ class PVFromM3GNet(PVFromCalc):
     def build_doc(self, m3gnet_calc: M3GNetMDCalculation):
         v_data = m3gnet_calc_to_vol(m3gnet_calc)
         p_data = m3gnet_calc_to_pressure(m3gnet_calc)
-        return MDPVDataDoc(volume=v_data, pressure=p_data)
+        return MDPVDataDoc(task_label='PV_FROM_M3GNET', volume=v_data, pressure=p_data)
 
 @dataclass
 class PVFromCHGNet(PVFromCalc):
@@ -113,7 +113,7 @@ class PVFromVasp(PVFromCalc):
     def build_doc(self, task_document: M3GNetMDCalculation): # Hui is confused that the class name is VASP while task_document is M3GNetMDCalculation
         v_data = task_doc_to_volume(task_document)
         p_data = task_doc_to_pressure(task_document)
-        return MDPVDataDoc(volume=v_data, pressure=p_data)
+        return MDPVDataDoc(task_label='PV_FROM_VASP',volume=v_data, pressure=p_data)
 
 
 def task_doc_to_volume(task_doc: AmsetTaskDocument) -> float:
