@@ -59,11 +59,11 @@ class PVFromCHGNet(PVFromCalc):
     model: str | None = None
 
     def run_md(self, structure: Structure, **kwargs):
-        model = CHGNet.from_file(model) if isinstance(model,str) else CHGNet()
+        _model = CHGNet.from_file(self.model) if isinstance(self.model,str) else CHGNet()
         calc_doc = run_chgnet(
             structure=structure,
             inputs=self.parameters,
-            model=model,
+            model=_model,
             name=self.name, **kwargs)
 
         return calc_doc
