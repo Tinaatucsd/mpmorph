@@ -19,10 +19,11 @@ CHGNET_MD = "CHGNET_MD"
 
 def get_md_flow_chgnet(
     structure : Structure, 
-    model : str,
     temp : float,
     steps_prod, 
-    steps_pv, converge_first = True, initial_vol_scale = 1, use_device='cpu'):
+    steps_pv, 
+    model : str | None = None,
+    converge_first = True, initial_vol_scale = 1, use_device='cpu'):
     
     inputs_prod = CHGNetMDInputs(
         temperature=temp,
