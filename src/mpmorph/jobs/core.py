@@ -64,7 +64,7 @@ class CHGNetMDMaker(Maker):
     parameters: CHGNetMDInputs = field(
         default_factory=empty_inputs_chgnet,
     )
-    model:CHGNet | CHGNetCalculator | None = None,
+    model: str | None = None,
 
     @job(trajectory="trajectory", output_schema=CHGNetMDCalculation)
     def make(self, structure: Structure, **kwargs):
@@ -76,10 +76,11 @@ class CHGNetMDMaker(Maker):
             structure: the input structure
         """
 
+        model = CHGNet.from_file(model) if isinstance(model,str) else CHGNet()
         calc_doc = run_chgnet(
             structure=structure, 
             inputs=self.parameters,
-            model=self.model,
+            model=model,
             name=self.name, **kwargs)
 
         return calc_doc

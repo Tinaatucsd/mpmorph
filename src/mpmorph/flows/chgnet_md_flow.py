@@ -1,4 +1,6 @@
+from __future__ import annotations
 from atomate2.vasp.jobs.core import MDMaker
+from chgnet.model import CHGNet
 from jobflow import Flow, Maker
 from mpmorph.jobs.core import CHGNetMDMaker
 
@@ -8,10 +10,20 @@ from pymatgen.core.structure import Structure
 from mpmorph.jobs.pv_from_calc import PVFromCalc, PVFromCHGNet, PVFromVasp
 from mpmorph.jobs.tasks.chgnet_input import CHGNetMDInputs
 
+#from typing import TYPE_CHECKING
+#if TYPE_CHECKING:
+    
+
 EQUILIBRATE_VOLUME_FLOW = "EQUILIBRATE_VOLUME_FLOW"
 CHGNET_MD = "CHGNET_MD"
 
-def get_md_flow_chgnet(structure, model, temp, steps_prod, steps_pv, converge_first = True, initial_vol_scale = 1, use_device='cpu'):
+def get_md_flow_chgnet(
+    structure : Structure, 
+    model : str,
+    temp : float,
+    steps_prod, 
+    steps_pv, converge_first = True, initial_vol_scale = 1, use_device='cpu'):
+    
     inputs_prod = CHGNetMDInputs(
         temperature=temp,
         steps=steps_prod,

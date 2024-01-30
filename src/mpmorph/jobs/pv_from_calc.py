@@ -1,3 +1,4 @@
+from __future__ import annotations
 from dataclasses import dataclass
 from jobflow import Maker, job, Response
 from pymatgen.core.structure import Structure
@@ -55,13 +56,14 @@ class PVFromCHGNet(PVFromCalc):
 
     name: str = "PV_FROM_CHGNET"
     parameters: CHGNetMDInputs = None
-    model: CHGNet | CHGNetCalculator | None = None,
+    model: str | None = None
 
     def run_md(self, structure: Structure, **kwargs):
+        model = CHGNet.from_file(model) if isinstance(model,str) else CHGNet()
         calc_doc = run_chgnet(
             structure=structure,
-            inputs=self.parameters, 
-            model=self.model,
+            inputs=self.parameters,
+            model=model,
             name=self.name, **kwargs)
 
         return calc_doc
