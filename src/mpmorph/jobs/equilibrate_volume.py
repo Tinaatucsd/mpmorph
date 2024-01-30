@@ -53,6 +53,7 @@ class EquilibriumVolumeSearchMaker(Maker):
                 params = rescale_volume.fit_BirchMurnaghanPV_EOS(pv_pairs)
                 equil_volume = params[0]
             except ValueError:
+                task_label = self.name if self.name is not None else "EQUIL_VOL_SEARCH"
                 return MDPVDataDoc(task_label=self.name)
             if (
                 equil_volume < max_explored_volume

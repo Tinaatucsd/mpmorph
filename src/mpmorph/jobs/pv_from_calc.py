@@ -71,7 +71,7 @@ class PVFromCHGNet(PVFromCalc):
     def build_doc(self, chgnet_calc: CHGNetMDCalculation):
         v_data = chgnet_calc_to_vol(chgnet_calc)
         p_data = chgnet_calc_to_pressure(chgnet_calc)
-        return MDPVDataDoc(volume=v_data, pressure=p_data)
+        return MDPVDataDoc(task_label='PV_FROM_CHGNET', volume=v_data, pressure=p_data)
 
 def m3gnet_calc_to_vol(m3gnet_calc: M3GNetMDCalculation):
     volume = m3gnet_calc.trajectory[-1].lattice.volume
