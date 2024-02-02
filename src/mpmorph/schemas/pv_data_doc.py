@@ -1,5 +1,5 @@
 from pydantic import BaseModel, Field
-from typing import Optional
+from typing import Optional, Union
 
 
 # class MDPVDataDoc(BaseModel):
@@ -9,8 +9,8 @@ from typing import Optional
 #     pressure: float = Field(None, description="The volume data from the MD run")
 class MDPVDataDoc(BaseModel):
     task_label: str = Field(None, description="The name of the task.")
-    volume: Optional[float] = Field(None, description="The volume data from the MD run")
-    pressure: Optional[float] = Field(None, description="The volume data from the MD run")    
+    volume: Union[float, None] = Field(None, description="The volume data from the MD run")
+    pressure: Union[float, None] = Field(None, description="The volume data from the MD run")    
     # other fields...
 
     @property
