@@ -9,8 +9,8 @@ from typing import Optional, Union
 #     pressure: float = Field(None, description="The volume data from the MD run")
 class pv_data_doc(BaseModel):
     task_label: str = Field(None, description="The name of the task.")
-    volume: Optional(float) = Field(None, description="The volume data from the MD run")
-    pressure: Optional(float) = Field(None, description="The volume data from the MD run")    
+    volume: Optional[float] = Field(None, description="The volume data from the MD run")
+    pressure: Optional[float] = Field(None, description="The volume data from the MD run")    
     # other fields...
 
     @property
