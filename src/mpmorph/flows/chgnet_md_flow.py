@@ -53,7 +53,7 @@ def get_equil_vol_flow_chgnet(structure, model, temp, steps):
     )
 
     pv_md_maker = PVFromCHGNet(parameters=inputs, model=model)
-    eq_vol_maker = EquilibriumVolumeSearchMaker(pv_from_md_maker=pv_md_maker)
+    eq_vol_maker = EquilibriumVolumeSearchMaker(pv_md_maker=pv_md_maker)
     equil_vol_job = eq_vol_maker.make(structure)
     flow = Flow([equil_vol_job], output=equil_vol_job.output, name=EQUILIBRATE_VOLUME_FLOW)
     return flow
@@ -72,7 +72,7 @@ initial_vol_scale):
         return Flow([production_md_maker.make(struct)], name='flow')
 
 def _get_converge_flow(structure: Structure, pv_md_maker: PVFromCalc, production_run_maker: Maker):
-    eq_vol_maker = EquilibriumVolumeSearchMaker(pv_from_md_maker=pv_md_maker)
+    eq_vol_maker = EquilibriumVolumeSearchMaker(pv_md_maker=pv_md_maker)
 
     equil_vol_job = eq_vol_maker.make(structure)
 

@@ -27,7 +27,7 @@ class EquilibriumVolumeSearchMaker(Maker):
     """
 
     name: str = "EQUIL_VOL_SEARCH"
-    pv_from_md_maker: Maker = PVFromVasp()
+    pv_md_maker: Maker = PVFromVasp()
     scale_factor_increment: float = 0.2
 
     @job
@@ -51,7 +51,7 @@ class EquilibriumVolumeSearchMaker(Maker):
             ]
 
             new_jobs = [
-                self.pv_from_md_maker.make(struct)
+                self.pv_md_maker.make(struct)
                 for struct in scaled_structs
             ]
 
@@ -105,7 +105,7 @@ class EquilibriumVolumeSearchMaker(Maker):
                 for factor in new_job_vol_scales
             ]            
 
-            new_jobs =  [self.pv_from_md_maker.make(struct) for struct in scaled_structs]
+            new_jobs =  [self.pv_md_maker.make(struct) for struct in scaled_structs]
 
             for new_job in new_jobs:
                 pv_data_docs.append(new_job.output)
